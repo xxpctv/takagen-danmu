@@ -146,6 +146,42 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 tvDebugOpen.setText(Hawk.get(HawkConfig.DEBUG_OPEN, false) ? "开启" : "关闭");
             }
         });
+        findViewById(R.id.lldanmusize).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastClickCheckUtil.check(v);
+                ArrayList<String> types = new ArrayList<>();
+                types.add("标准");
+                types.add("大");
+                types.add("超大");
+                Integer danmuSizePos = types.indexOf(Hawk.get(HawkConfig.DANMU_SIZE, "标准"));
+                SelectDialog<String> dialog = new SelectDialog<>(mActivity);
+                dialog.setTip("弹幕大小");
+                dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<String>() {
+                    @Override
+                    public void click(String value, int pos) {
+                        Hawk.put(HawkConfig.DANMU_SIZE, value);
+                    }
+
+                    @Override
+                    public String getDisplay(String val) {
+                        return val;
+                    }
+                }, new DiffUtil.ItemCallback<String>() {
+                    @Override
+                    public boolean areItemsTheSame(@NonNull @NotNull String oldItem, @NonNull @NotNull String newItem) {
+                        return oldItem.equalsIgnoreCase(newItem);
+                    }
+
+                    @Override
+                    public boolean areContentsTheSame(@NonNull @NotNull String oldItem, @NonNull @NotNull String newItem) {
+                        return oldItem.equalsIgnoreCase(newItem);
+                    }
+                }, types, danmuSizePos);
+                dialog.show();
+            }
+        });
+
         // Input Source URL ------------------------------------------------------------------------
         findViewById(R.id.llApi).setOnClickListener(new View.OnClickListener() {
             @Override

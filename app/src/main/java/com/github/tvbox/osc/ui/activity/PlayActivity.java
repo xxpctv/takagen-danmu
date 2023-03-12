@@ -262,7 +262,10 @@ public class PlayActivity extends BaseActivity {
             public void selectAudioTrack() {
                 selectMyAudioTrack();
             }
+            @Override
+            public void toggleDanmu() {
 
+            }
             @Override
             public void openVideo() {
                 openMyVideo();

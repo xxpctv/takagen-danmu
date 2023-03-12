@@ -280,6 +280,7 @@ public class VodController extends BaseController {
     TextView mPlayerTxt;
     TextView mPlayerIJKBtn;
     LinearLayout mSubtitleBtn;
+    TextView mDanmuBtn;
 
     public SimpleSubtitleView mSubtitleView;
     LinearLayout mAudioTrackBtn;
@@ -366,6 +367,7 @@ public class VodController extends BaseController {
         mPlayerImg = findViewById(R.id.play_player_img);
         mPlayerTxt = findViewById(R.id.play_player_txt);
         mPlayerIJKBtn = findViewById(R.id.play_ijk);
+        mDanmuBtn = findViewById(R.id.danmu);
 
         mSubtitleBtn = findViewById(R.id.play_subtitle);
         mSubtitleView = findViewById(R.id.subtitle_view);
@@ -692,6 +694,19 @@ public class VodController extends BaseController {
                 mPlayerIJKBtn.requestFocus();
             }
         });
+
+        mDanmuBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.toggleDanmu();
+                if(String.valueOf(mDanmuBtn.getText()).equalsIgnoreCase("弹幕开")){
+                    mDanmuBtn.setText("弹幕关");
+                }else {
+                    mDanmuBtn.setText("弹幕开");
+                }
+            }
+        });
+
         // Button : Subtitle selection ----------------------------------------
         mSubtitleBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -924,6 +939,8 @@ public class VodController extends BaseController {
         void selectAudioTrack();
 
         void openVideo();
+
+        void toggleDanmu();
 
     }
 

@@ -11,6 +11,7 @@ import java.util.Map;
 public class UrlHttpUtil {
     private static final String METHOD_GET = "GET";
     private static final String METHOD_POST = "POST";
+    private static final String METHOD_SYNC_GET = "syncGET";
 
     public static final String FILE_TYPE_FILE = "file/*";
     public static final String FILE_TYPE_IMAGE = "image/*";
@@ -27,6 +28,13 @@ public class UrlHttpUtil {
         get(url, null, null, callBack);
     }
 
+    public static void syncGet(String url, Map<String, String> paramsMap, Map<String, String> headerMap, CallBackUtil callBack) {
+        new RequestUtil(METHOD_SYNC_GET, url, paramsMap, headerMap, callBack).execute();
+    }
+
+    public static void syncGet(String url, CallBackUtil callBack) {
+        syncGet(url, null, null, callBack);
+    }
     /**
      * get请求，可以传递参数
      *

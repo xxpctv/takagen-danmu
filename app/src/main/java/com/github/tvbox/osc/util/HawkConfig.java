@@ -15,6 +15,7 @@ public class HawkConfig {
     public static final String LIVE_HISTORY = "live_history";
     public static final String EPG_URL = "epg_url";
     public static final String EPG_HISTORY = "epg_history";
+    public static final String DANMU_SIZE = "danmu_size";
 
     // Settings
     public static final String DEBUG_OPEN = "debug_open";
@@ -55,6 +56,7 @@ public class HawkConfig {
     public static final String LIVE_SHOW_NET_SPEED = "live_show_net_speed";
     public static final String LIVE_SHOW_TIME = "live_show_time";
     public static final String LIVE_SKIP_PASSWORD = "live_skip_password";
+    public static final String IJK_CACHE_PLAY = "ijk_cache_play";
 
     public static boolean isDebug() {
         return Hawk.get(DEBUG_OPEN, false);
