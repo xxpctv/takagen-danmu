@@ -21,7 +21,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId 'com.github.tvbox.osc.tk'
+        applicationId 'com.github.tvbox.osc.tk.danmu'
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
