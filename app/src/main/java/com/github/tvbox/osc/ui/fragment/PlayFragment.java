@@ -1363,6 +1363,7 @@ public class PlayFragment extends BaseLazyFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         if(chatBroadcastWsClient != null){
             chatBroadcastWsClient.close();
             chatBroadcastWsClient = null;
