@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import master.flame.danmaku.controller.IDanmakuView;
 import xyz.doikki.videoplayer.controller.BaseVideoController;
 import xyz.doikki.videoplayer.controller.MediaPlayerControl;
 import xyz.doikki.videoplayer.render.IRenderView;
@@ -97,6 +98,7 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
 
     protected boolean mIsTinyScreen;//是否处于小屏状态
     protected int[] mTinyScreenSize = {0, 0};
+    protected IDanmakuView danmakuView;
 
     /**
      * 监听系统中音频焦点改变，见{@link #setEnableAudioFocus(boolean)}
@@ -185,6 +187,9 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
             startPlay();
         } else if (isInPlaybackState()) {
             startInPlaybackState();
+        }
+        if (danmakuView != null && danmakuView.isPrepared() && danmakuView.isPaused()) {
+            this.danmakuView.resume();
         }
     }
 
@@ -346,6 +351,9 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
         if (isInPlaybackState()
                 && !mMediaPlayer.isPlaying()) {
             mMediaPlayer.start();
+            if (danmakuView != null && danmakuView.isPrepared() && danmakuView.isPaused()) {
+                this.danmakuView.resume();
+            }
             setPlayState(STATE_PLAYING);
             if (mAudioFocusHelper != null && !isMute()) {
                 mAudioFocusHelper.requestFocus();
@@ -474,6 +482,9 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
     public void seekTo(long pos) {
         if (isInPlaybackState()) {
             mMediaPlayer.seekTo(pos);
+            if (danmakuView != null && danmakuView.isPrepared()) {
+                this.danmakuView.seekTo(pos);
+            }
         }
     }
 
@@ -538,10 +549,18 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
                 break;
             case AbstractPlayer.MEDIA_INFO_BUFFERING_END:
                 setPlayState(STATE_BUFFERED);
+                if (danmakuView != null && danmakuView.isPrepared()) {
+                    long cur = getCurrentPosition();
+                    this.danmakuView.seekTo(cur);
+                }
                 break;
             case AbstractPlayer.MEDIA_INFO_RENDERING_START: // 视频/音频开始渲染
                 setPlayState(STATE_PLAYING);
                 mPlayerContainer.setKeepScreenOn(true);
+                if (danmakuView != null && danmakuView.isPrepared()) {
+                    long cur = getCurrentPosition();
+                    this.danmakuView.seekTo(cur);
+                }
                 break;
             case AbstractPlayer.MEDIA_INFO_VIDEO_ROTATION_CHANGED:
                 if (mRenderView != null) mRenderView.setVideoRotation(extra);
@@ -549,6 +568,9 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
         }
     }
 
+    public void setDanmuView(master.flame.danmaku.controller.IDanmakuView danmakuView) {
+        this.danmakuView = danmakuView;
+    }
     /**
      * 视频播放出错回调
      */
