@@ -233,7 +233,7 @@ public class VodController extends BaseController {
     LinearLayout mSpeedll;
 
     // pause container
-    FrameLayout mProgressTop;
+    public static FrameLayout mProgressTop;
     ImageView mPauseIcon;
     LinearLayout mTapSeek;
 
@@ -852,6 +852,7 @@ public class VodController extends BaseController {
                     mTopRoot.setVisibility(GONE);
                     mBottomRoot.setVisibility(GONE);
                     mBack.setVisibility(GONE);
+                    mProgressTop.setVisibility(INVISIBLE);
                     mHandler.removeCallbacks(mHideBottomRunnable);
                     ((DetailActivity) mActivity).toggleFullPreview();
                 } else {
