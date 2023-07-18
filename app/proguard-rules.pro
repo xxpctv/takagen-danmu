@@ -221,6 +221,14 @@
 # 支持影视的ali相关的jar
 -keep class com.google.gson.**{*;}
 
+#阿里云播放器
+-keep class com.alivc.**{*;}
+-keep class com.aliyun.**{*;}
+-keep class com.cicada.**{*;}
+-dontwarn com.alivc.**
+-dontwarn com.aliyun.**
+-dontwarn com.cicada.**
+
 #添加PY支持
 -keep public class com.undcover.freedom.pyramid.** { *; }
 -dontwarn com.undcover.freedom.pyramid.**

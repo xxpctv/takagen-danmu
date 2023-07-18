@@ -57,10 +57,12 @@ public class App extends MultiDexApplication {
         PythonLoader.getInstance().setApplication(this);
 
         // Delete Cache
-        File dir = getCacheDir();
+        /*File dir = getCacheDir();
         FileUtils.recursiveDelete(dir);
         dir = getExternalCacheDir();
-        FileUtils.recursiveDelete(dir);
+        FileUtils.recursiveDelete(dir);*/
+
+        FileUtils.cleanPlayerCache();
 
         // Add JS support
         JSEngine.getInstance().create();
